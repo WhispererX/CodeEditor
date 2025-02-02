@@ -1,0 +1,34 @@
+/* -------------------------------------------------------------------------- */
+/*                                 CodeMirror                                 */
+/* -------------------------------------------------------------------------- */
+
+.CodeMirror {
+    margin-left: 200px;
+    font-size: 16px;
+}
+
+.CodeMirror-scroll {
+    overflow: auto; 
+}
+
+.CodeMirror-hints {
+    font-family: 'Courier New', monospace; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5); 
+
+    .CodeMirror-hint {
+        padding: 5px 10px;
+        cursor: pointer; 
+    }
+
+    .CodeMirror-hint:hover {
+        background: #adadad;
+    }
+
+    .CodeMirror-hint-active {
+        background: #7e7e7e; 
+        color: #282a36; 
+    }
+}
+
+
+

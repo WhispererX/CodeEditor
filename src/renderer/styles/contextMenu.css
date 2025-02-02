@@ -1,0 +1,58 @@
+.context-menu {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: rgb(153, 153, 153);
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 10px;
+    max-width: 150px;
+    z-index: 1000;
+  }
+  
+  .context-menu span {
+    display: block;
+    margin: 5px 0;
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: small;
+  }
+  
+  .context-menu button {
+    width: 100%;
+    background-color: #333;
+    border: none; 
+    color: #888;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-family: monospace;
+    text-align: left;
+  }
+  
+  .context-menu button:hover {
+    background-color: #555;
+  }
+
+  .context-menu hr {
+    border-top: 1px solid #555;
+    border-bottom: 1px solid #555;
+    border-right: 1px solid #555;
+    border-left: 1px solid #555;
+  }
+  
+  .sub-menu {
+    display: none; 
+    position:fixed; 
+    background-color: #333; 
+    margin-top: 0; 
+    padding: 10px; 
+    border-radius: 4px;
+    z-index: 1001;
+  }
+  
+  .sub-menu button {
+    width: 100%; /* Auto width for sub-menu buttons */
+    display: block; /* Display vertically */
+    margin: 5px 0; /* Margin for spacing */
+  }

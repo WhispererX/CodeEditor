@@ -1,0 +1,87 @@
+.js::before {
+    content: '';
+    display: inline-block;
+    width: 12px;   
+    height: 12px;  
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-plain.svg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+}
+
+.html::before{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-plain.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.css::before{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-plain.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.cs::before{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.java::before{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.txt::before{
+    content: '📄';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 12px;
+    background-image: url('');
+    background-size: cover;
+    background-position: center;
+}
+
+.py::before{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.php::before{
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg');
+    background-size: cover;
+    background-position: center;
+}

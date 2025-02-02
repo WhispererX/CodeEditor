@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/contextMenu.css">
+    <link rel="stylesheet" href="./styles/editor.css">
+    <link rel="stylesheet" href="./styles/explorer.css">
+    <link rel="stylesheet" href="./styles/filetree.css">
+    <link rel="stylesheet" href="./styles/search.css">
+    <link rel="stylesheet" href="./styles/languages.css">
+    <link rel="stylesheet" href="./styles/preview.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/lib/codemirror.css">
+
+    <!-- ------------------------- Code Mirror Styles -------------------------- -->
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/search/search.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/display/fullscreen.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/snippet/snippet.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/dialog/dialog.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/fold/foldgutter.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/lint/lint.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/addon/scroll/simplescrollbars.css">
+
+    <!-- ------------------------------- Themes -------------------------------- -->
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/eclipse.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/material.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/neo.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/lesser-dark.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/solarized.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/yeti.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/ambiance.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/dracula.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/zenburn.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/yonce.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/xq-dark.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/vibrant-ink.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/twilight.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/the-matrix.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/3024-night.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/abcdef.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/ayu-dark.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/ayu-mirage.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/blackboard.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/cobalt.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/duotone-dark.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/isotope.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/liquibyte.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/lucario.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/material-ocean.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/mdn-like.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/moxer.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/night.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/nord.css">
+    <link rel="stylesheet" href="../../node_modules/codemirror/theme/rubyblue.css">
+
+</head>
+
+<body>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 Modals                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <!-- Modal for creating File -->
+    <div id="createFileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Create New File</h2>
+            <input type="text" id="createFileModalInput" placeholder="index.js" />
+            <button id="createFileModalButton">Create</button>
+        </div>
+    </div>
+
+    <!-- Modal for renaming File-->
+    <div id="renameFileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Rename File</h2>
+            <input type="text" id="renameFileModalInput" placeholder="index.js" />
+            <button id="renameFileModalButton">Rename</button>
+        </div>
+    </div>
+
+    <!-- Modal for renaming folder-->
+    <div id="renameFolderModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Rename Folder</h2>
+            <input type="text" id="renameFolderModalInput" placeholder="Folder" />
+            <button id="renameFolderModalButton">Rename</button>
+        </div>
+    </div>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                Explorer                                 -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="explorer" id="explorer">
+        <div class="explorerButtons">
+            <button id="createFile" title="Create a File">
+                <img src="./images/createFile.png" alt="Create File">
+            </button>
+            <button id="openFile" title="Open a File">
+                <img src="./Images/openFile.png" alt="Open File">
+            </button>
+            <button id="openFolder" title="Open a Folder">
+                <img src="./Images/openFolder.png" alt="Open Folder">
+            </button>
+        </div>
+        <!-- ------------------------------- folder -------------------------------- -->
+        <div class="folder" id="Folder" onclick="toggleFolder()" contenteditable="false">▾ Folder</div>
+
+        <!-- -------------------------------- files -------------------------------- -->
+        <div id="files" style="display: block;">
+
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                            Search & Replace                             -->
+    <!-- ----------------------------------------------------------------------- -->
+
+
+    <textarea id="codeEditor"></textarea>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                               Code Editor                               -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <textarea id="codeEditor" name="codeEditor" class="code-editor" placeholder=""></textarea>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                              Context Menu                               -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div id="contextMenu" class="context-menu">
+        <button id="renameFolder">Rename Folder</button>
+        <hr>
+        <button id="renameFile">Rename</button>
+        <button id="copyFile">Copy</button>
+        <button id="duplicateFile">Duplicate</button>
+        <button id="deleteFile">Delete</button>
+        <hr>
+        <button id="createFileBtn">Create File</button>
+        <button id="openFileBtn">Open File</button>
+        <button id="openFolderBtn">Open Folder</button>
+        <hr>
+        <button id="toggleJavascript">Javascript &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></button>
+        <div class="sub-menu" id="javascriptMenu">
+            <button id="snippetIf">If</button>
+            <button id="snippetIfElse">If Else</button>
+            <button id="snippetFor">For loop</button>
+            <button id="snippetWhile">While loop</button>
+            <button id="snippetImport">Import</button>
+        </div>
+        <button id="toggleHtml">Html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></button>
+        <div class="sub-menu" id="htmlMenu">
+            <button id="snippetDoc">Doc</button>
+            <button id="snippetScript">Script</button>
+            <button id="snippetLink">Style</button>
+        </div>
+    </div>
+
+    <div id="preview-wrapper">
+        <iframe id="preview"></iframe>
+    </div>
+
+
+    <footer>
+        <!-- ------------------------------- Scripts ------------------------------- -->
+        <script type="module" src="contextMenu.js" type="module"></script>
+        <script type="module" src="editor.js"></script>
+        <script src="folder.js"></script>
+        <script type="module" src="snippets.js"></script>
+        <script src="preview.js"></script>
+        <script src="../../node_modules/codemirror/lib/codemirror.js"></script>
+
+        <!-- ------------------------------ Languages ------------------------------ -->
+        <script src="../../node_modules/codemirror/mode/clike/clike.js"></script>
+        <script src="../../node_modules/codemirror/mode/typescript/typescript.js"></script>
+        <script src="../../node_modules/codemirror/mode/markdown/markdown.js"></script>
+        <script src="../../node_modules/codemirror/mode/sql/sql.js"></script>
+        <script src="../../node_modules/codemirror/mode/php/php.js"></script>
+        <script src="../../node_modules/codemirror/mode/ruby/ruby.js"></script>
+        <script src="../../node_modules/codemirror/mode/go/go.js"></script>
+        <script src="../../node_modules/codemirror/mode/rust/rust.js"></script>
+        <script src="../../node_modules/codemirror/mode/swift/swift.js"></script>
+        <script src="../../node_modules/codemirror/mode/kotlin/kotlin.js"></script>
+        <script src="../../node_modules/codemirror/mode/r/r.js"></script>
+        <script src="../../node_modules/codemirror/mode/shell/shell.js"></script>
+        <script src="../../node_modules/codemirror/mode/powershell/powershell.js"></script>
+        <script src="../../node_modules/codemirror/mode/yaml/yaml.js"></script>
+        <script src="../../node_modules/codemirror/mode/toml/toml.js"></script>
+        <script src="../../node_modules/codemirror/mode/properties/properties.js"></script>
+        <script src="../../node_modules/codemirror/mode/javascript/javascript.js"></script>
+        <script src="../../node_modules/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+        <script src="../../node_modules/codemirror/mode/css/css.js"></script>
+        <script src="../../node_modules/codemirror/mode/clike/clike.js"></script>
+        <script src="../../node_modules/codemirror/mode/xml/xml.js"></script>
+
+        <!-- ------------------------- Code Mirror Addons -------------------------- -->
+        <script src="../../node_modules/codemirror/addon/edit/closebrackets.js"></script>
+        <script src="../../node_modules/codemirror/addon/edit/closetag.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/show-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/html-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/css-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/show-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/anyword-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/html-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/hint/css-hint.js"></script>
+        <script src="../../node_modules/codemirror/addon/snippet/snippet.js"></script>
+        <script src="../../node_modules/codemirror/addon/mode/loadmode.js"></script>
+        <script src="../../node_modules/codemirror/addon/mode/multiplex.js"></script>
+        <script src="../../node_modules/codemirror/addon/mode/simple.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/foldcode.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/foldgutter.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/brace-fold.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/comment-fold.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/indent-fold.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/markdown-fold.js"></script>
+        <script src="../../node_modules/codemirror/addon/fold/xml-fold.js"></script>
+        <script src="../../node_modules/codemirror/addon/display/fullscreen.js"></script>
+        <script src="../../node_modules/codemirror/addon/dialog/dialog.js"></script>
+        <script src="../../node_modules/codemirror/addon/search/search.js"></script>
+        <script src="../../node_modules/codemirror/addon/search/searchcursor.js"></script>
+        <script src="../../node_modules/codemirror/mode/markdown/markdown.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="../../node_modules/codemirror-search-replace/src/search.js"></script>
+        <script src="../../node_modules/codemirror/addon/lint/javascript-lint.js"></script>
+        <script src="../../node_modules/codemirror/addon/lint/css-lint.js"></script>
+        <script src="../../node_modules/codemirror/addon/lint/html-lint.js"></script>
+        <script src="../../node_modules/codemirror/addon/lint/json-lint.js"></script>
+        <script src="../../node_modules/codemirror/addon/lint/yaml-lint.js"></script>
+        <script src="../../node_modules/codemirror/addon/lint/lint.js"></script>
+        <script src="../../node_modules/codemirror/addon/edit/continuelist.js"></script>
+        <script src="../../node_modules/codemirror/addon/edit/matchtags.js"></script>
+        <script src="../../node_modules/codemirror/addon/edit/matchbrackets.js"></script>
+        <script src="../../node_modules/codemirror/addon/scroll/annotatescrollbar.js"></script>
+        <script src="../../node_modules/codemirror/addon/scroll/scrollpastend.js"></script>
+        <script src="../../node_modules/codemirror/addon/scroll/simplescrollbars.js"></script>
+        <script src="../../node_modules/codemirror/addon/comment/comment.js"></script>
+        <script src="../../node_modules/codemirror/addon/comment/continuecomment.js"></script>
+        <script src="../../node_modules/codemirror/keymap/emacs.js"></script>
+        <script src="../../node_modules/codemirror/keymap/sublime.js"></script>
+        <script src="../../node_modules/codemirror/keymap/vim.js"></script>
+    </footer>
+</body>
+
+</html>
